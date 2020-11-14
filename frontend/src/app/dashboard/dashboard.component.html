@@ -1,0 +1,37 @@
+<h2 class="centered">Homepage</h2>
+<br>
+<div class="container">
+    <div class="row list-of-users" >
+        <div class="col-md-8">
+            <h5 class="centered"> List of users</h5>
+        </div>
+        <div class="col-md-4">
+            <button class="btn btn-primary">Create a New user</button>
+        </div>
+    </div>
+    <br><br>
+    <div class="row list">
+        <div class="row">
+
+            <div *ngFor= "let data of userdata" class="col-md-3">
+                <div class="card card-margin" >
+                    <div class="card-body">
+                      <h6 class="card-title">Name:</h6>
+                      <p class="card-subtitle mb-2 text-muted">{{data.name}}</p>
+                      <h6 class="card-title">Email:</h6>
+                      <p class="card-subtitle mb-2 text-muted">{{data.email}}</p>
+                      <h6 class="card-title">Phone Number:</h6>
+                      <p class="card-subtitle mb-2 text-muted">{{data.phone_number}}</p>
+                      
+                      <button class="btn btn-primary card-link" >Edit</button>
+                      <button class="btn btn-danger card-link" (click)="deletedata(data._id)">Delete</button>
+                      
+                    </div>
+                  </div>  
+            </div>
+            
+            
+        </div>
+    </div>
+
+</div>

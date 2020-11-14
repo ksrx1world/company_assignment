@@ -16,7 +16,7 @@ router.route('/session').post((req, res) => {
     .then((saveduser) => {
         if (!saveduser)
         { 
-            res.status(422).json({error: 'Invalid Email or Password'}) 
+            res.json({msg: "invalid Email Id or password", status: 'fail'}) 
         }
 
         bcrypt.compare(password , saveduser.password)
@@ -24,11 +24,11 @@ router.route('/session').post((req, res) => {
             if(domatch)
             {
                 const token = jwt.sign({_id:saveduser._id}, jwtsecret)
-                res.status(200).json({token : token})
+                res.status(200).json({msg: "successfully login", status: "success",token : token})
             }
             else
             {
-                res.status(422).json({error: 'Invalid Email or Password'})
+                res.json({msg: "invalid Email Id or password", status: 'fail'})
             }
         })
         .catch(err => res.json(err))

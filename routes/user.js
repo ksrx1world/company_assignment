@@ -19,7 +19,7 @@ router.route('/users').post((req, res) => {
     Usr.findOne({$or: [{email:email}, {phone_number: phone_number}]})
         .then((savedusr) => {
             if(savedusr){
-                res.json("User Already Registered")
+                res.json({msg: "User already added", status: "fail"})
             }
             bcrypt.hash(password, 10)
             .then(hashedpassword => {
@@ -54,7 +54,7 @@ router.route('/users/:id').put((req ,res) => {
 // To Delete the user
 router.route('/users/:id').delete((req, res) => {
     Usr.findByIdAndDelete(req.params.id)
-    .then(() => res.json("user deleted"))
+    .then(() => res.json({msg: "user deleted", status:"success"}))
     .catch(err => res.status(404).json("Error: " + err));
 });
 
