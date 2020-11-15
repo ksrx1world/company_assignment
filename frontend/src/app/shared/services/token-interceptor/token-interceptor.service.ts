@@ -1,6 +1,8 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpInterceptor } from '@angular/common/http';
 import { AuthService } from '../auth.service';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,13 @@ export class TokenInterceptorService implements HttpInterceptor{
         Authorization: `Bearer ${authService.getToken()}`
       }
     })
-    return next.handle(tokenizedReq); 
+    return next.handle(tokenizedReq)
+    .pipe(
+      catchError(err => {
+        // console.log(err);
+        return throwError(err.status)
+      })
+    )    
   }
 
 }

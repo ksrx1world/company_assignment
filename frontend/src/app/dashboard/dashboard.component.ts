@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ApiService } from '../shared/services/api.service';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,7 +9,9 @@ import { ApiService } from '../shared/services/api.service';
 })
 export class DashboardComponent implements OnInit,OnDestroy {
   userdata:any = ''
-  constructor(private apiService : ApiService, 
+  show=true;
+  constructor(private apiService : ApiService,
+              private authService: AuthService
               // private cdr: ChangeDetectorRef,
     ) { }
 
@@ -24,7 +27,10 @@ export class DashboardComponent implements OnInit,OnDestroy {
         // this.cdr.detectChanges;
         console.log(response);
       },
-      (error) => console.log(error)
+      (error) => {
+        console.log(error);
+        this.authService.checkError(error);
+      }
     )}
 
 
@@ -34,13 +40,12 @@ export class DashboardComponent implements OnInit,OnDestroy {
         console.log(response);
         this.getUsers();
       },
-      (error) => console.log(error)
+      (error) => {
+        console.log(error);
+        this.authService.checkError(error);
+      }
     )}
-
-  editUser(id,index){
-    // this.apiService.editUser()
-    console.log(id, this.userdata[index])
-  } 
+  
 
   ngOnDestroy(){
     // this.cdr.detach();

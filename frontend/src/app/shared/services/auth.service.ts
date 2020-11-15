@@ -31,4 +31,12 @@ export class AuthService {
   loggedIn(){
     return !!localStorage.getItem('token');
   }
+
+  checkError(error){
+    if(error == 401){
+      this.deleteToken();
+      this.router.navigate(['/login'],{ queryParams: { msg: "unauthorized token access Please login again" , status: "fail"  } } )
+      }
+  }
+
 }

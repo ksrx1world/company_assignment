@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 const getUsersUrl = '/api/v1/users';
+const getSingleUser = '/api/v1/user';
 
 
 @Injectable(
@@ -15,7 +16,8 @@ export class ApiService {
 
   getUsers()
   {
-    return this.http.get(`${environment.apiUrl}${getUsersUrl}`);
+    const token=localStorage.getItem('token');
+    return this.http.get(`${environment.apiUrl}${getUsersUrl}/${token}`);
   }
 
   deleteUser(id){
@@ -31,7 +33,7 @@ export class ApiService {
   }
   
   getCurrentData(id){
-    return this.http.get(`${environment.apiUrl}${getUsersUrl}/${id}`)
+    return this.http.get(`${environment.apiUrl}${getSingleUser}/${id}`)
   }
 
  

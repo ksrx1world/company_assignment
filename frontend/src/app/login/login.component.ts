@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
 
 @Component({
@@ -10,7 +10,13 @@ import { AuthService } from '../shared/services/auth.service';
 })
 export class LoginComponent implements OnInit {
 msg : any = "";
-  constructor(private authService: AuthService, private router: Router) { }
+params: any ="";
+
+  constructor(private authService: AuthService, 
+              private router: Router, 
+              private route: ActivatedRoute) { }
+
+
   loginform = new FormGroup (
     {
       email: new FormControl ('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
@@ -29,7 +35,10 @@ msg : any = "";
           this.router.navigate(['/dashboard']);
         }
       },
-      (error) => console.log(error)
+      (error) => {
+        console.log(error);
+        this.authService.checkError(error);
+      }
     )
   }
 
@@ -37,6 +46,13 @@ msg : any = "";
 
 
   ngOnInit(): void {
+    this.route.queryParamMap
+  .subscribe((params) => {
+    this.params = params;
+    console.log(params)
+  }
+  )
+
   }
   
 }

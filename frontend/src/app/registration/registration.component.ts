@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl , FormGroup , Validators} from '@angular/forms';
+import {FormBuilder, FormControl , FormGroup , Validators} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../shared/services/api.service';
+import { AuthService } from '../shared/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -12,7 +14,12 @@ export class RegistrationComponent implements OnInit {
   msg: any ="";
   constructor(private http: HttpClient, 
               private apiService : ApiService,
+              private fb: FormBuilder,
+              private authService: AuthService,
+              private router: Router
               ){}
+
+token= this.authService.getToken()
 
   registerform = new FormGroup (
     {
@@ -30,12 +37,24 @@ export class RegistrationComponent implements OnInit {
 
 
   registerUser(){
+      
       this.msg="";
+      this.registerform = this.fb.group({
+        email: this.email,
+        name: this.name,
+        phone_number: this.phone_number,
+        password: this.password,
+        token: this.token
+      });
+      console.log(this.registerform)
       this.apiService.registerUser(this.registerform.value).subscribe(
         (response) =>{
           this.msg=response ;
           console.log(response);
-          
+          if(!this.token){
+            this.router.navigate(['/login'], { queryParams: { msg: "User Successfully registered Please login" , status: "success"  }})
+          }
+          this.router.navigate(['/dashboard'])
         },
         (error) => console.log(error)
       )

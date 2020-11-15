@@ -1,12 +1,14 @@
-<h2 class="centered">Homepage</h2>
+
+
 <br>
-<div class="container">
+<div class="container" [hidden]="!show">
+    <h2 class="centered">Homepage</h2>
     <div class="row list-of-users" >
         <div class="col-md-8">
             <h5 class="centered"> List of users</h5>
         </div>
         <div class="col-md-4">
-            <button class="btn btn-primary">Create a New user</button>
+            <button class="btn btn-primary" routerLink='/register'>Create a New user</button>
         </div>
     </div>
     <br><br>
@@ -33,3 +35,4 @@
     </div>
 
 </div>
+

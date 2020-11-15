@@ -1,5 +1,7 @@
 <h2 class="centered"> Login </h2>
 <br>
+<div *ngIf="params.params.status == 'fail'"><div class="alert alert-danger" role="alert">{{params.params.msg   }}</div> </div>
+<div *ngIf="params.params.status == 'success'"><div class="alert alert-danger" role="alert">{{params.params.msg}}</div> </div>
 <div class="container centeredcontainer" >  
  <div *ngIf="msg.status== 'success'"><div class="alert alert-success" role="alert">{{msg.msg}}</div> </div>
  <div *ngIf="msg.status== 'fail'"><div class="alert alert-danger" role="alert">{{msg.msg}}</div> </div> 
