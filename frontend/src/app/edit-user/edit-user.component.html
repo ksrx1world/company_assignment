@@ -1,0 +1,29 @@
+<h2 class="centered"> Edit User</h2>
+<br>
+<div class="container centeredcontainer" >  
+ <div *ngIf="msg.status== 'success'"><div class="alert alert-success" role="alert">{{msg.msg}}</div> </div>
+ <div *ngIf="msg.status== 'fail'"><div class="alert alert-danger" role="alert">{{msg.msg}}</div> </div>
+ 
+<form [formGroup] = 'editForm' (ngSubmit)="editUser()">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" formControlName='name' placeholder="Enter user name">
+        <span class="error" *ngIf= "name.invalid && name.touched">Name must be in between 3 to 20 alphabets</span>
+        </div>
+    <div class="form-group">
+    <label for="email">Email address</label>
+    <input type="email" class="form-control" id="email" formControlName='email' placeholder="Enter Email Address">
+    <span class="error" *ngIf= "email.invalid && email.touched">Email is Required</span>
+</div>
+    <div class="form-group">
+        <label for="phone_number">Phone Number</label>
+        <input type="number" required class="form-control" id="phone_number" formControlName='phone_number' placeholder="Enter phone number">
+        <span class="error" *ngIf= "phone_number.invalid && phone_number.touched">phone number must be of 10 digits</span>
+    </div>
+    
+    <button type="submit" class="btn btn-primary btn-block" [disabled]="!editForm.valid">Update</button>
+    <br>
+    <button type="submit" class="btn btn-danger" routerLink='/dashboard'>Go Back</button>
+</form>
+</div>
+    

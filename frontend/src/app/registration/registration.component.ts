@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl , FormGroup , Validators} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { ApiService } from '../shared/services/api.service';
 
 @Component({
   selector: 'app-registration',
@@ -9,8 +10,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RegistrationComponent implements OnInit {
   msg: any ="";
-  constructor(private http: HttpClient
-    ) { }
+  constructor(private http: HttpClient, 
+              private apiService : ApiService,
+              ){}
 
   registerform = new FormGroup (
     {
@@ -27,8 +29,9 @@ export class RegistrationComponent implements OnInit {
 
 
 
-  collectdata(){
-      this.http.post('http://localhost:5000/api/v1/users', this.registerform.value).subscribe(
+  registerUser(){
+      this.msg="";
+      this.apiService.registerUser(this.registerform.value).subscribe(
         (response) =>{
           this.msg=response ;
           console.log(response);

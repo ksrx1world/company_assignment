@@ -11,9 +11,8 @@
     </div>
     <br><br>
     <div class="row list">
-        <div class="row">
 
-            <div *ngFor= "let data of userdata" class="col-md-3">
+            <div *ngFor= "let data of userdata; index as i" class="col-md-3">
                 <div class="card card-margin" >
                     <div class="card-body">
                       <h6 class="card-title">Name:</h6>
@@ -23,12 +22,11 @@
                       <h6 class="card-title">Phone Number:</h6>
                       <p class="card-subtitle mb-2 text-muted">{{data.phone_number}}</p>
                       
-                      <button class="btn btn-primary card-link" >Edit</button>
-                      <button class="btn btn-danger card-link" (click)="deletedata(data._id)">Delete</button>
+                      <a class="btn btn-primary card-link" routerLink='/edituser/{{data._id}}'>Edit</a>
+                      <button class="btn btn-danger card-link" (click)="deleteUser(data._id)">Delete</button>
                       
                     </div>
                   </div>  
-            </div>
             
             
         </div>

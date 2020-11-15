@@ -4,7 +4,7 @@
      <div *ngIf="msg.status== 'success'"><div class="alert alert-success" role="alert">{{msg.msg}}</div> </div>
      <div *ngIf="msg.status== 'fail'"><div class="alert alert-danger" role="alert">{{msg.msg}}</div> </div> 
      
-    <form [formGroup] = 'registerform' (ngSubmit)="collectdata()">
+    <form [formGroup] = 'registerform' (ngSubmit)="registerUser()">
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" id="name" formControlName='name' placeholder="Enter user name">

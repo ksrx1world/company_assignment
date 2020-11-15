@@ -10,6 +10,9 @@ import { RegistrationComponent } from './registration/registration.component';
 import { NavComponent } from './nav/nav.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
+import { SharedModule } from './shared/shared.module';
+import { EditUserComponent } from './edit-user/edit-user.component';
+
 
 @NgModule({
   declarations: [
@@ -17,12 +20,17 @@ import { LoginComponent } from './login/login.component';
     RegistrationComponent,
     NavComponent,
     DashboardComponent,
-    LoginComponent
+    LoginComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,CommonModule,
-    FormsModule, ReactiveFormsModule,HttpClientModule 
+    AppRoutingModule,
+    CommonModule,
+    FormsModule, 
+    ReactiveFormsModule,
+    HttpClientModule, 
+    SharedModule 
   ],
   providers: [],
   bootstrap: [AppComponent]
