@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
 msg : any = "";
-  constructor(private http: HttpClient) { }
+  constructor(private authService: AuthService, private router: Router) { }
   loginform = new FormGroup (
     {
       email: new FormControl ('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
@@ -20,11 +21,13 @@ msg : any = "";
   get password() {return this.loginform.get('password')};
 
   collectdata(){
-    this.http.post('http://localhost:5000/api/v1/session', this.loginform.value).subscribe(
+    this.authService.login(this.loginform.value).subscribe(
       (response) =>{
-        this.msg=response ;
-        console.log(response);
-        
+        this.msg=response;
+        if(this.msg.status == 'success'){
+          this.authService.setToken(this.msg.token);
+          this.router.navigate(['/dashboard']);
+        }
       },
       (error) => console.log(error)
     )

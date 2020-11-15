@@ -1,15 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 const getUsersUrl = '/api/v1/users';
+
 
 @Injectable(
 
 )
 export class ApiService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   getUsers()
   {
@@ -31,4 +33,7 @@ export class ApiService {
   getCurrentData(id){
     return this.http.get(`${environment.apiUrl}${getUsersUrl}/${id}`)
   }
+
+ 
+
 }

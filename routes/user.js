@@ -1,13 +1,18 @@
 const router = require('express').Router();
 let Usr = require('../models/user.model');
 const bcrypt = require('bcrypt');
-
+const requirelogin = require('../middleware/requireLogin.js');
+    
 //To get list of all the created users 
-router.route('/users').get((req, res) => {
+router.route('/users').get(requirelogin,(req, res) => {
     Usr.find()
     .then(usr => res.json(usr))
     .catch(err => res.status(400).json('Error: ' + err));
 });
+
+router.route('/protected').get(requirelogin,(req,res) => {
+    res.json({msg: "this is the protected data"});
+})
 
 //To create user
 router.route('/users').post((req, res) => {
@@ -45,14 +50,18 @@ router.route('/users').post((req, res) => {
 });
 
 // To Update the user
-router.route('/users/:id').put((req ,res) => {
+router.route('/users/:id').put(requirelogin,(req ,res) => {
     Usr.findOneAndUpdate({_id: req.params.id}, {name: req.body.name,email: req.body.email,phone_number: req.body.phone_number })
     .then(() => res.status(200).json({msg: "user Updated", status: "success"}))
-        .catch(err => res.json("Error: " + err));
+        .catch(err => {
+            if(String(err).indexOf('E11000') !== -1){
+                res.json({msg: "User Email or phone Number Already Exist", status: "fail"}) 
+            }
+                        res.json("Error: " + err)});
 });
 
 // To Delete the user
-router.route('/users/:id').delete((req, res) => {
+router.route('/users/:id').delete(requirelogin,(req, res) => {
     Usr.findByIdAndDelete(req.params.id)
     .then(() => res.json({msg: "user deleted", status:"success"}))
     .catch(err => res.status(404).json("Error: " + err));
@@ -61,12 +70,12 @@ router.route('/users/:id').delete((req, res) => {
 
 
 
-
-// router.route('/:id').get((req, res) => {
-//     Usr.findById(req.params.id)
-//     .then(usr => res.json(usr))
-//     .catch(err => res.status(404).json("Error: " + err));
-// });
+// TO get single user data from object Id as param
+router.route('/users/:id').get(requirelogin,(req, res) => {
+    Usr.findById(req.params.id)
+    .then(usr => res.json(usr))
+    .catch(err => res.status(404).json("Error: " + err));
+});
 
 // router.route('/delete/:id').delete((req, res) => {
 //     Usr.findByIdAndDelete(req.params.id)
