@@ -1,4 +1,6 @@
-    <h2 class="centered"> User Registration</h2>
+    <h2 class="centered" *ngIf='!ifLogin()'> User Registration</h2>
+    <h2 class="centered" *ngIf='ifLogin()'> Create a User</h2>
+    <button type="btn btn-danger" *ngIf='ifLogin()' routerLink='/dashboard'>Go back to Dashboard</button>
     <br>
     <div class="container centeredcontainer" >  
      <div *ngIf="msg.status== 'success'"><div class="alert alert-success" role="alert">{{msg.msg}}</div> </div>

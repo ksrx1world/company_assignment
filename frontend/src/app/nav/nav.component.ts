@@ -17,4 +17,8 @@ export class NavComponent implements OnInit {
     this.authService.deleteToken();
   }
 
+  ifLogin(){
+    return this.authService.loggedIn();
+  }
+
 }

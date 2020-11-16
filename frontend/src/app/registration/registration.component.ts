@@ -62,7 +62,9 @@ token= this.authService.getToken()
     console.log(this.registerform.value)
   }
 
-
+  ifLogin(){
+    return this.authService.loggedIn();
+    }
  
 
   ngOnInit(): void {
