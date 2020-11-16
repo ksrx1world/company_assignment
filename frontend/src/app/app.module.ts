@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { CommonModule }  from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -32,7 +33,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     HttpClientModule, 
     SharedModule 
   ],
-  providers: [],
+  providers: [{provide : LocationStrategy , useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

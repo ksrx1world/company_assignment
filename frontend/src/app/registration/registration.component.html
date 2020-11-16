@@ -1,6 +1,5 @@
     <h2 class="centered" *ngIf='!ifLogin()'> User Registration</h2>
     <h2 class="centered" *ngIf='ifLogin()'> Create a User</h2>
-    <button type="btn btn-danger" *ngIf='ifLogin()' routerLink='/dashboard'>Go back to Dashboard</button>
     <br>
     <div class="container centeredcontainer" >  
      <div *ngIf="msg.status== 'success'"><div class="alert alert-success" role="alert">{{msg.msg}}</div> </div>
@@ -8,26 +7,31 @@
      
     <form [formGroup] = 'registerform' (ngSubmit)="registerUser()">
         <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">Name*</label>
             <input type="text" class="form-control" id="name" formControlName='name' placeholder="Enter user name">
             <span class="error" *ngIf= "name.invalid && name.touched">Name must be in between 3 to 20 alphabets</span>
             </div>
         <div class="form-group">
-        <label for="email">Email address</label>
+        <label for="email">Email address*</label>
         <input type="email" class="form-control" id="email" formControlName='email' placeholder="Enter Email Address">
         <span class="error" *ngIf= "email.invalid && email.touched">Email is Required</span>
     </div>
         <div class="form-group">
-            <label for="phone_number">Phone Number</label>
+            <label for="phone_number">Phone Number*</label>
             <input type="number" required class="form-control" id="phone_number" formControlName='phone_number' placeholder="Enter phone number">
             <span class="error" *ngIf= "phone_number.invalid && phone_number.touched">phone number must be of 10 digits</span>
         </div>
         <div class="form-group">
-        <label for="password">Password</label>
+        <label for="password">Password*</label>
         <input type="password" class="form-control" id="password" formControlName='password' placeholder="Password">
         <span class="error" *ngIf= "password.invalid && password.touched">password must be between 8 to 20</span>
         </div>
+        <span clas  ="error">All * Fields are required</span>
+        <br>
         <button type="submit" class="btn btn-primary btn-block" [disabled]="!registerform.valid">Submit</button>
+        <br>
+        <button class="btn btn-danger" *ngIf='ifLogin()' routerLink='/dashboard'>Go to Dashboard</button>
+        
     </form>
     </div>
         

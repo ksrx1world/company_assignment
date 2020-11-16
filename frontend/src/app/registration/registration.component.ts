@@ -46,20 +46,21 @@ token= this.authService.getToken()
         password: this.password,
         token: this.token
       });
-      console.log(this.registerform)
+      // console.log(this.registerform)
       this.apiService.registerUser(this.registerform.value).subscribe(
         (response) =>{
           this.msg=response ;
-          console.log(response);
-          if(!this.token){
-            this.router.navigate(['/login'], { queryParams: { msg: "User Successfully registered Please login" , status: "success"  }})
-          }
-          this.router.navigate(['/dashboard'])
-        },
+          //console.log(response);
+          if(this.msg.status == 'success' && this.token){
+            this.router.navigate(['/dashboard'], { queryParams: { msg: "User Successfully created" , status: "success"  }})          }
+
+          else if(this.msg.status == 'success'){
+            this.router.navigate(['/login'], { queryParams: { msg: "User Successfully registered Please login" , status: "success"  }})          }
+          },
         (error) => console.log(error)
       )
     
-    console.log(this.registerform.value)
+    // console.log(this.registerform.value)
   }
 
   ifLogin(){

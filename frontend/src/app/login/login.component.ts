@@ -36,7 +36,7 @@ params: any ="";
         }
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         this.authService.checkError(error);
       }
     )
@@ -49,7 +49,7 @@ params: any ="";
     this.route.queryParamMap
   .subscribe((params) => {
     this.params = params;
-    console.log(params)
+    // console.log(params)
   }
   )
 

@@ -11,7 +11,9 @@
             <button class="btn btn-primary" routerLink='/register'>Create a New user</button>
         </div>
     </div>
-    <br><br>
+    <br>
+    <div *ngIf="params.params.status == 'success'"><div class="alert alert-success" role="alert">Operation Successful</div> </div>
+    <br>
     <div class="row list">
 
             <div *ngFor= "let data of userdata; index as i" class="col-md-3">

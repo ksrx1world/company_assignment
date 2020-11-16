@@ -34,7 +34,7 @@ export class EditUserComponent implements OnInit {
  getCurrentData(){
    this.apiService.getCurrentData(this.route.snapshot.params.id).subscribe(
     (response) =>{
-      console.log(response);
+      // console.log(response);
       this.editForm = new FormGroup (
         {
           name: new FormControl (response['name'], [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
@@ -43,7 +43,7 @@ export class EditUserComponent implements OnInit {
         })
       },
     (error) => {
-      console.log(error);
+      // console.log(error);
       this.authService.checkError(error);
       }
   )}
@@ -51,11 +51,15 @@ export class EditUserComponent implements OnInit {
   editUser(){
     this.apiService.editUser(this.route.snapshot.params.id, this.editForm.value).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.msg=response;
-        this.router.navigate(['/dashboard']);
+        if(this.msg.status == 'success'){
+          this.router.navigate(['/dashboard'], { queryParams: { msg: "User Successfully created" , status: "success"  }})
+        }
+        
       },
-      (error) => { console.log(error);
+      (error) => { 
+        // console.log(error);
         this.authService.checkError(error);
         }
 
